@@ -44,7 +44,7 @@ require 'truthtable/qm'
 #
 # * feature name for require
 #
-#   require 'truthtable'
+#    require 'truthtable'
 #
 # * simple operators
 #
