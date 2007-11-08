@@ -40,7 +40,11 @@ require 'truthtable/qm'
 #   * disjunctive normal form
 #   * conjunctive normal form
 #
-# == Example
+# == Usage
+#
+# * feature name for require
+#
+#   require 'truthtable'
 #
 # * simple operators
 #
