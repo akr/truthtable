@@ -30,7 +30,7 @@ class TruthTable
     module_function
 
     # implements Quine-McCluskey algorithm.
-    # It minimize a boolean function given by <i>tbl</i>.
+    # It minimize the boolean function given by <i>tbl</i>.
     #
     # For example, the 3-inputs majority function is given as follows.
     #

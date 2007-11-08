@@ -46,7 +46,16 @@ require 'truthtable/qm'
 #
 #    require 'truthtable'
 #
-# * truth table shown by p and pp.
+# * puts, p and pp shows truth table
+#
+#    puts TruthTable.new {|v| v[0] & v[1] }
+#    #=>
+#    v[0] v[1] | 
+#    ----------+--
+#     f    f   | f
+#     f    t   | f
+#     t    f   | f
+#     t    t   | t
 #
 #    p TruthTable.new {|v| v[0] & v[1] }
 #    #=> #<TruthTable: !v[0]&!v[1]=>false !v[0]&v[1]=>false v[0]&!v[1]=>false v[0]&v[1]=>true>
@@ -143,6 +152,38 @@ class TruthTable
   def initialize(&b)
     table = TruthTable.test(&b)
     @table = table
+  end
+
+  def to_s
+    r = ''
+    names = sort_names(all_names.keys)
+    format = ''
+    sep = ''
+    names.each {|name|
+      format << "%-#{name.length}s "
+      sep << '-' * (name.length+1)
+    }
+    format << "| %s\n"
+    sep << "+--\n"
+    r << sprintf(format, *(names + ['']))
+    r << sep
+    @table.each {|inputs, output, order|
+      h = {}
+      each_input(inputs) {|name, input|
+        h[name] = input
+      }
+      args = []
+      names.each {|name|
+        if h.has_key? name
+          args << (h[name] ? 't' : 'f').center(name.length)
+        else
+          args << '?'.center(name.length)
+        end
+      }
+      args << (output ? 't' : 'f')
+      r << sprintf(format, *args)
+    }
+    r
   end
 
   # :stopdoc:
