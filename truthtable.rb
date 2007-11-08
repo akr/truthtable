@@ -62,7 +62,9 @@ require 'truthtable/qm'
 #
 # * formula generation
 #
+#    p TruthTable.new {|v| v[0] }.formula         #=>"v[0]"
 #    p TruthTable.new {|v| !v[0] }.formula        #=> "!v[0]"
+#    p TruthTable.new {|v| true ^ v[0] }.formula  #=> "!v[0]"
 #    p TruthTable.new {|v| v[0] & v[1] }.formula  #=> "v[0]&v[1]"
 #    p TruthTable.new {|v| v[0] | v[1] }.formula  #=> "v[0] | v[1]"
 #    p TruthTable.new {|v| v[0] ^ v[1] }.formula  #=> "!v[0]&v[1] | v[0]&!v[1]"
