@@ -87,4 +87,31 @@ class TestQM < Test::Unit::TestCase
     assert_equal([[:x, true, true], [true, :x, true], [true, true, :x]], QM.qm(tbl))
   end
 
+  def test_qm_4bit_fib_predicate
+    tbl = {
+      [0,0,0,0]=>0,
+      [0,0,0,1]=>1,     # 1
+      [0,0,1,0]=>1,     # 2
+      [0,0,1,1]=>1,     # 3
+      [0,1,0,0]=>0,
+      [0,1,0,1]=>1,     # 5
+      [0,1,1,0]=>0,
+      [0,1,1,1]=>0,
+      [1,0,0,0]=>1,     # 8
+      [1,0,0,1]=>0,
+      [1,0,1,0]=>0,
+      [1,0,1,1]=>0,
+      [1,1,0,0]=>0,
+      [1,1,0,1]=>1,     # 13
+      [1,1,1,0]=>0,
+      [1,1,1,1]=>0,
+    }
+    assert_equal([
+      [:x, true, false, true],
+      [false, :x, false, true],
+      [false, false, true, :x],
+      [true, false, false, false]],
+      QM.qm(tbl))
+  end
+
 end
