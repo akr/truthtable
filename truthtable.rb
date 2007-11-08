@@ -1,6 +1,7 @@
 require 'truthtable/qm'
 
 class TruthTable
+  # :stopdoc:
   class TruthTableObject
     def initialize
       @checked = {}
@@ -37,6 +38,7 @@ class TruthTable
       v
     end
   end
+  # :startdoc:
 
   def self.test(&b)
     r = []
@@ -54,7 +56,7 @@ class TruthTable
     @table = table
   end
 
-  # Disjunctive normal form
+  # obtains a formula in disjunctive normal form.
   def dnf
     r = []
     @table.each {|inputs, output|
@@ -72,7 +74,7 @@ class TruthTable
     r.join(' | ')
   end
 
-  # Conjunctive normal form
+  # obtains a formula in conjunctive normal form.
   def cnf
     r = []
     @table.each {|inputs, output|

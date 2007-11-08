@@ -103,6 +103,8 @@ class TruthTable
       }
     end
 
+    # :stopdoc:
+
     def has_intersection?(t1, t2)
       [t1,t2].transpose.all? {|v1, v2|
         v1 == -1 || v2 == -1 || v1 == v2
@@ -307,5 +309,7 @@ class TruthTable
         q = next_q
       end
     end
+
+    # :startdoc:
   end
 end
