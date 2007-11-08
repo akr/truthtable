@@ -53,6 +53,15 @@ class TestQM < Test::Unit::TestCase
     assert_equal([[:x, true], [false, :x]], QM.qm(tbl))
   end
 
+  def test_qm_shortcut_or
+    tbl = {
+      [0, 0]=>0,
+      [1, :x]=>1,
+      [0, 1]=>1
+    }
+    assert_equal([[:x, true], [true, :x]], QM.qm(tbl))
+  end
+
   def test_qm_3and
     tbl = {
       [false,:x,   :x   ]=>false,

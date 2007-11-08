@@ -1,3 +1,35 @@
+# = truthtable
+#
+# == Feature
+#
+# - generate a truth table from a given block which contains logical formula written in Ruby.
+# - generate a formula from the table:
+#   - minimal one (obtained by Quine-McCluskey algorithm)
+#   - disjunctive normal form
+#   - conjunctive normal form
+#
+# == Example
+#
+# - simple operators
+#
+#    p TruthTable.new {|v| !v[0] }.formula        #=> "!v[0]"
+#    p TruthTable.new {|v| v[0] & v[1] }.formula  #=> "v[0]&v[1]"
+#    p TruthTable.new {|v| v[0] | v[1] }.formula  #=> "v[1] | v[0]"
+#    p TruthTable.new {|v| v[0] ^ v[1] }.formula  #=> "!v[0]&v[1] | v[0]&!v[1]"
+#    p TruthTable.new {|v| v[0] == v[1] }.formula #=> "!v[0]&!v[1] | v[0]&v[1]"
+#
+# - shortcuts, && and ||, are also usable but converted to & and |
+#
+#    p TruthTable.new {|v| v[0] && v[1] }.formula #=> "v[0]&v[1]"
+#    p TruthTable.new {|v| v[0] || v[1] }.formula #=> "v[1] | v[0]"
+#
+# - any number of inputs, any expression (without side effect)
+#
+#    p TruthTable.new {|v| [v[0], v[1], v[2], v[3]].grep(true).length <= 3 }.formula
+#    #=> "!v[3] | !v[1] | !v[2] | !v[0]"
+#
+#
+
 require 'truthtable/qm'
 
 class TruthTable

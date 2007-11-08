@@ -211,6 +211,32 @@ class TruthTable
       end
     end
 
+    def combine2(t1, t2)
+      num_diffs = 0
+      r = [t1,t2].transpose.map {|v1, v2|
+        if v1 == v2
+          v1
+        elsif v1 == 0 && v2 == 1
+          num_diffs += 1
+          return nil if 1 < num_diffs
+          -1
+        elsif v1 == 1 && v2 == 0
+          num_diffs += 1
+          return nil if 1 < num_diffs
+          -1
+        elsif v2 == -1
+          v1
+        else
+          return nil
+        end
+      }
+      if num_diffs == 1
+        r
+      else
+        nil
+      end
+    end
+
     def find_prime_implicants(tbl)
       num_inputs = nil
       implicants_sets = []
@@ -237,6 +263,27 @@ class TruthTable
                 implicants_sets[num_dontcares+1][num_ones] ||= {}
                 implicants_sets[num_dontcares+1][num_ones][t] = true
               end
+            }
+          }
+        }
+        isets.each {|ts1|
+          next if !ts1
+          ts1.each_key {|t1|
+            (num_dontcares+1).upto(num_inputs-1) {|num_dontcares2|
+              isets2 = implicants_sets[num_dontcares2]
+              next if !isets2
+              isets2.each {|ts2|
+                next if !ts2
+                ts2.each_key {|t2|
+                  if t = combine2(t1, t2)
+                    combined[t1] = true
+                    num_ones = t1.grep(1).length
+                    implicants_sets[num_dontcares+1] ||= []
+                    implicants_sets[num_dontcares+1][num_ones] ||= {}
+                    implicants_sets[num_dontcares+1][num_ones][t] = true
+                  end
+                }
+              }
             }
           }
         }
