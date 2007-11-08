@@ -130,7 +130,7 @@ class TruthTable
     r = []
     o = TruthTableObject.new
     begin
-      result = b.call(o)
+      result = !!b.call(o)
       inputs = o.plan
       order = o.order
       r << [inputs, result, order]
