@@ -126,6 +126,41 @@ class TruthTable
   end
 
   # :stopdoc:
+  def inspect
+    result = "#<#{self.class}:"
+    @table.each {|inputs, output, order|
+      term = []
+      each_input(inputs) {|name, input|
+        if input
+          term << name
+        else
+          term << "!#{name}"
+        end
+      }
+      result << " #{term.join('&')}=>#{output}"
+    }
+    result << ">"
+    result
+  end
+
+  def pretty_print(q)
+    q.object_group(self) {
+      q.text ':'
+      q.breakable
+      q.seplist(@table, lambda { q.breakable('; ') }) {|inputs, output, order|
+        term = []
+        each_input(inputs) {|name, input|
+          if input
+            term << " #{name}"
+          else
+            term << "!#{name}"
+          end
+        }
+        q.text "#{term.join('&')}=>#{output}"
+      }
+    }
+  end
+
   def all_names
     return @all_names if defined? @all_names
     @all_names = {}
@@ -143,6 +178,12 @@ class TruthTable
     total_order = all_names
     names.sort_by {|n| total_order[n] }
   end
+
+  def each_input(inputs)
+    sort_names(inputs.keys).each {|name|
+      yield name, inputs[name]
+    }
+  end
   # :startdoc:
 
   # obtains a formula in disjunctive normal form.
@@ -151,8 +192,7 @@ class TruthTable
     @table.each {|inputs, output|
       next if !output
       term = []
-      sort_names(inputs.keys).each {|name|
-        input = inputs[name]
+      each_input(inputs) {|name, input|
         if input
           term << name
         else
@@ -170,8 +210,7 @@ class TruthTable
     @table.each {|inputs, output|
       next if output
       term = []
-      sort_names(inputs.keys).each {|name|
-        input = inputs[name]
+      each_input(inputs) {|name, input|
         if input
           term << "!#{name}"
         else
