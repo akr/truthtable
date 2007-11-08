@@ -42,11 +42,24 @@ require 'truthtable/qm'
 #
 # == Usage
 #
-# * feature name for require
+# * require
 #
 #    require 'truthtable'
 #
-# * simple operators
+# * truth table shown by p and pp.
+#
+#    p TruthTable.new {|v| v[0] & v[1] }
+#    #=> #<TruthTable: !v[0]&!v[1]=>false !v[0]&v[1]=>false v[0]&!v[1]=>false v[0]&v[1]=>true>
+#
+#    pp TruthTable.new {|v| v[0] & v[1] }
+#    #=>
+#    #<TruthTable:
+#     !v[0]&!v[1]=>false
+#     !v[0]& v[1]=>false
+#      v[0]&!v[1]=>false
+#      v[0]& v[1]=>true>
+#
+# * formula generation
 #
 #    p TruthTable.new {|v| !v[0] }.formula        #=> "!v[0]"
 #    p TruthTable.new {|v| v[0] & v[1] }.formula  #=> "v[0]&v[1]"
