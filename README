@@ -26,7 +26,16 @@ http://www.a-k-r.org/truthtable/
 
   require 'truthtable'
 
-* truth table shown by p and pp.
+* puts, p and pp shows truth table
+
+   puts TruthTable.new {|v| v[0] & v[1] }
+   #=>
+   v[0] v[1] | 
+   ----------+--
+    f    f   | f
+    f    t   | f
+    t    f   | f
+    t    t   | t
 
    p TruthTable.new {|v| v[0] & v[1] }
    #=> #<TruthTable: !v[0]&!v[1]=>false !v[0]&v[1]=>false v[0]&!v[1]=>false v[0]&v[1]=>true>
