@@ -24,10 +24,7 @@
 # IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
 # OF SUCH DAMAGE.
 
-# :stopdoc:
 class TruthTable
-# :startdoc:
-
   # Quine-McCluskey algorithm
   module QM
     module_function

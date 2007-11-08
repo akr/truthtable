@@ -1,3 +1,3 @@
 rdoc:
-	rdoc --op rdoc truthtable.rb truthtable/qm.rb
+	rdoc --op rdoc truthtable/qm.rb truthtable.rb
 
