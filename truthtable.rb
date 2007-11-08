@@ -1,4 +1,4 @@
-# truthtable.rb - truth table and formula generator from Ruby block
+# truthtable.rb - truth table and formula generator
 #
 # Copyright (C) 2007 Tanaka Akira  <akr@fsij.org>
 # 
@@ -27,6 +27,10 @@
 require 'truthtable/qm'
 
 # = truth table and formula generator from Ruby block
+#
+# The truthtable library generates a truth table from
+# a logical formula written in Ruby.
+# The truth table can be converted to a logical formula.
 #
 # == Author
 #
