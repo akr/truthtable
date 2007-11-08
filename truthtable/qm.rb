@@ -267,8 +267,8 @@ class TruthTable
       num_inputs = nil
       implicants_sets = []
       tbl.each {|inputs, output|
-        next if output == 0
         num_inputs = inputs.length
+        next if output == 0
         num_dontcares = inputs.grep(-1).length
         num_ones = inputs.grep(1).length
         implicants_sets[num_dontcares] ||= []

@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'truthtable/qm'
 
-class TestQM < Test::Unit::TestCase
+class TestTruthTableQM < Test::Unit::TestCase
   QM = TruthTable::QM
 
   def test_intern_tbl

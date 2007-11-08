@@ -208,6 +208,7 @@ class TruthTable
   def dnf
     r = []
     @table.each {|inputs, output|
+      return output.to_s if inputs.empty?
       next if !output
       term = []
       each_input(inputs) {|name, input|
@@ -219,6 +220,7 @@ class TruthTable
       }
       r << term.join('&')
     }
+    return "false" if r.empty?
     r.join(' | ')
   end
 
@@ -226,6 +228,7 @@ class TruthTable
   def cnf
     r = []
     @table.each {|inputs, output|
+      return output.to_s if inputs.empty?
       next if output
       term = []
       each_input(inputs) {|name, input|
@@ -241,6 +244,7 @@ class TruthTable
         r << "(#{term.join('|')})"
       end
     }
+    return "true" if r.empty?
     r.join(' & ')
   end
 
@@ -250,6 +254,7 @@ class TruthTable
     input_names_ary = sort_names(input_names.keys)
     tbl = {}
     @table.each {|inputs, output|
+      return output.to_s if inputs.empty?
       inputs2 = [:x] * input_names.length
       inputs.each {|name, input|
         inputs2[input_names[name]] = input ? 1 : 0
@@ -260,15 +265,23 @@ class TruthTable
     r = []
     qm.each {|term|
       t = []
+      num_dontcare = 0
       term.each_with_index {|v, i|
         if v == false
           t << ("!" + input_names_ary[i])
         elsif v == true
           t << input_names_ary[i]
+        else # :x
+          num_dontcare += 1
         end
       }
-      r << t.join('&')
+      if num_dontcare == term.length
+        r << 'true'
+      else
+        r << t.join('&')
+      end
     }
+    return "false" if r.empty?
     r.join(' | ')
   end
 end
