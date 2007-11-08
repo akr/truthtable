@@ -37,9 +37,9 @@ class TestQM < Test::Unit::TestCase
       [1,1,1,1]=>1,
     }
     assert_equal([
-      [:x,   true, false, false],
+      [true, :x,   true,  :x   ],
       [true, :x,   :x,    false],
-      [true, :x,   true,  :x   ]],
+      [:x,   true, false, false]],
       QM.qm(tbl))
   end
 
@@ -50,7 +50,7 @@ class TestQM < Test::Unit::TestCase
       [true, false]=>false,
       [true, true ]=>true,
     }
-    assert_equal([[:x, true], [false, :x]], QM.qm(tbl))
+    assert_equal([[false, :x], [:x, true]], QM.qm(tbl))
   end
 
   def test_qm_shortcut_or
@@ -59,7 +59,7 @@ class TestQM < Test::Unit::TestCase
       [1, :x]=>1,
       [0, 1]=>1
     }
-    assert_equal([[:x, true], [true, :x]], QM.qm(tbl))
+    assert_equal([[true, :x], [:x, true]], QM.qm(tbl))
   end
 
   def test_qm_3and
@@ -79,7 +79,7 @@ class TestQM < Test::Unit::TestCase
       [:x,   true, :x   ]=>true,
       [:x,   :x,   true ]=>true,
     }
-    assert_equal([[:x, :x, true], [:x, true, :x], [true, :x, :x]], QM.qm(tbl))
+    assert_equal([[true, :x, :x], [:x, true, :x], [:x, :x, true]], QM.qm(tbl))
   end
 
   def test_qm_majority
@@ -93,7 +93,7 @@ class TestQM < Test::Unit::TestCase
       [1,1,0]=>1,
       [1,1,1]=>1,
     }
-    assert_equal([[:x, true, true], [true, :x, true], [true, true, :x]], QM.qm(tbl))
+    assert_equal([[true, true, :x], [true, :x, true], [:x, true, true]], QM.qm(tbl))
   end
 
   def test_qm_4bit_fib_predicate
@@ -116,10 +116,10 @@ class TestQM < Test::Unit::TestCase
       [1,1,1,1]=>0,
     }
     assert_equal([
-      [:x, true, false, true],
-      [false, :x, false, true],
+      [true, false, false, false],
       [false, false, true, :x],
-      [true, false, false, false]],
+      [false, :x, false, true],
+      [:x, true, false, true]],
       QM.qm(tbl))
   end
 

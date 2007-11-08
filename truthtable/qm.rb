@@ -19,10 +19,11 @@ class TruthTable
     #    [true,  false, true ] => true,
     #    [true,  true,  false] => true,
     #    [true,  true,  true ] => true,
-    #  QM.qm(tbl)
+    #  }
+    #  TruthTable::QM.qm(tbl)
     #  #=>
-    #  [[:x, true, true], [true, :x, true], [true, true, :x]]  # Q&R | P&R | P&Q
-    #  #     Q     R       P         R       P     Q
+    #  [[true, true, :x], [true, :x, true], [:x, true, true]]  # P&Q | P&R | Q&R
+    #  # P     Q           P         R           Q     R
     #
     # For another example, the implication function is given as follows.
     #
@@ -33,10 +34,10 @@ class TruthTable
     #    [true,  false] => false,
     #    [true,  true ] => true,
     #  }
-    #  QM.qm(tbl)
+    #  TruthTable::QM.qm(tbl)
     #  #=>
-    #  [[:x, true], [false, :x]]  # Q | ~P
-    #  #     Q       ~P
+    #  [[false, :x], [:x, true]]  # ~P | Q
+    #  # ~P               Q
     #
     # <i>tbl</i> is a hash to represent a boolean function.
     # If the function has N variables, 
@@ -98,7 +99,7 @@ class TruthTable
       prime_implicants = find_prime_implicants(tbl)
       essential_prime_implicants, chart = make_chart(prime_implicants, tbl)
       additional_prime_implicants = search_minimal_combination(chart)
-      (essential_prime_implicants.keys + additional_prime_implicants).sort.map {|t|
+      (essential_prime_implicants.keys + additional_prime_implicants).sort.reverse.map {|t|
         extern_term(t)
       }
     end
