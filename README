@@ -49,6 +49,33 @@ http://www.a-k-r.org/truthtable/
      v[0]&!v[1]=>false
      v[0]& v[1]=>true>
 
+* '?' is shown for non-evaluated variable
+
+   puts TruthTable.new {|v| v[0] && v[1] }'
+   #=>
+   v[0] v[1] | 
+   ----------+--
+    f    ?   | f
+    t    f   | f
+    t    t   | t
+
+   puts TruthTable.new {|v| v[0] || v[1] }'
+   #=>
+   v[0] v[1] | 
+   ----------+--
+    f    f   | f
+    f    t   | t
+    t    ?   | t
+
+   puts TruthTable.new {|v| !v[0] ? !v[1] : !v[2] }'
+   #=>
+   v[0] v[1] v[2] | 
+   ---------------+--
+    f    f    ?   | t
+    f    t    ?   | f
+    t    ?    f   | t
+    t    ?    t   | f
+
 * formula generation
 
    p TruthTable.new {|v| !v[0] }.formula        #=> "!v[0]"
@@ -57,7 +84,7 @@ http://www.a-k-r.org/truthtable/
    p TruthTable.new {|v| v[0] ^ v[1] }.formula  #=> "!v[0]&v[1] | v[0]&!v[1]"
    p TruthTable.new {|v| v[0] == v[1] }.formula #=> "!v[0]&!v[1] | v[0]&v[1]"
 
-* shortcuts, && and ||, are also usable but converted to & and |
+* shortcuts, && and ||, are not preserved
 
    p TruthTable.new {|v| v[0] && v[1] }.formula #=> "v[0]&v[1]"
    p TruthTable.new {|v| v[0] || v[1] }.formula #=> "v[0] | v[1]"
