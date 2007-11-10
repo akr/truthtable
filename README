@@ -1,4 +1,4 @@
-= truthtable - truth table and formula generator
+= truthtable - truth table to formula
 
 The truthtable library generates a truth table from
 a logical formula written in Ruby.
