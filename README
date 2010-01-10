@@ -106,11 +106,7 @@ http://www.a-k-r.org/truthtable/
 
 * latest release: http://www.a-k-r.org/truthtable/truthtable-0.1.tar.gz
 
-* development version in Git repository:
-  
-  http://github.com/akr/truthtable or checkout with:
-
-    % git-clone git://github.com/akr/truthtable.git
+* development version: http://github.com/akr/truthtable
 
 == Install
 
